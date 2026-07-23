@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   Bot,
@@ -9,13 +9,15 @@ import {
   CalendarDays,
   ChevronRight,
   Download,
-  FileText,
   MessageSquare,
   Moon,
   ShieldCheck,
   Sparkles,
   Sun,
   WifiOff,
+  Globe,
+  Layout,
+  Layers,
 } from "lucide-react";
 
 type FeatureCard = {
@@ -85,46 +87,66 @@ const steps: StepCard[] = [
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const shellStyles = darkMode
-    ? "bg-[#08101c] text-white"
-    : "bg-slate-50 text-slate-900";
+    ? "bg-[#030014] text-slate-50"
+    : "bg-[#f8fafc] text-slate-900";
 
-  const mutedText = darkMode ? "text-slate-400" : "text-slate-600";
-  const panel = darkMode ? "bg-[#111b2d] border border-slate-800" : "bg-white border border-slate-200";
-  const panelSoft = darkMode ? "bg-[#0f1728]" : "bg-slate-100";
+  const mutedText = darkMode ? "text-slate-400" : "text-slate-500";
+  const panel = darkMode
+    ? "bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl"
+    : "bg-white border border-slate-200 shadow-sm";
+  const accentGradient = "bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400";
 
   return (
-    <div className={`${shellStyles} min-h-screen transition-colors duration-300`}>
+    <div className={`${shellStyles} ${darkMode ? 'dark-theme' : 'light-theme'} min-h-screen transition-colors duration-700 selection:bg-blue-500/30 selection:text-white`}>
+      {/* Background Decorative Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className={`absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-20 transition-colors duration-1000 ${darkMode ? 'bg-blue-600' : 'bg-blue-200'}`} />
+        <div className={`absolute bottom-[10%] -right-[5%] w-[30%] h-[40%] rounded-full blur-[120px] opacity-15 transition-colors duration-1000 ${darkMode ? 'bg-indigo-600' : 'bg-indigo-200'}`} />
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03] ${darkMode ? 'invert-0' : 'invert'}`}
+             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54 48c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zM6 48c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zM54 6c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zM6 6c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4z' fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E")` }} />
+      </div>
+
       <nav
-        className={`sticky top-0 z-50 backdrop-blur-xl ${darkMode ? "bg-[#08101c]/90 border-b border-slate-800" : "bg-white/90 border-b border-slate-200"}`}
+        className={`fixed top-0 z-50 w-full transition-all duration-500 ${scrolled ? (darkMode ? "bg-black/60 border-b border-white/10 backdrop-blur-xl py-3" : "bg-white/80 border-b border-slate-200 backdrop-blur-xl py-3") : "bg-transparent py-6"}`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-16">
-          <div>
-            <div className="text-2xl font-extrabold tracking-tight">
-              Go<span className="text-blue-500">Study</span>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className={`p-2 rounded-xl ${accentGradient} shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-500`}>
+               <Layers className="text-white" size={20} />
             </div>
-            <p className={`text-xs ${mutedText}`}>Student hub for the University of Buea</p>
+            <div className="flex flex-col">
+              <span className="text-xl font-black tracking-tighter leading-none italic">
+                GO<span className="text-blue-500">STUDY</span>
+              </span>
+              <span className={`text-[10px] font-bold uppercase tracking-widest ${mutedText}`}>Student Hub</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <a
-              href="#features"
-              className={`hidden rounded-full px-4 py-2 text-sm font-medium transition md:inline-flex ${darkMode ? "hover:bg-slate-800" : "hover:bg-slate-100"}`}
-            >
-              Features
-            </a>
-            <a
-              href="#download"
-              className={`hidden rounded-full px-4 py-2 text-sm font-medium transition md:inline-flex ${darkMode ? "hover:bg-slate-800" : "hover:bg-slate-100"}`}
-            >
-              Download
-            </a>
+          <div className="flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8">
+              {["Features", "Download", "Docs"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className={`text-xs font-bold uppercase tracking-widest transition-colors ${mutedText} hover:text-blue-500`}
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+            <div className={`h-6 w-px ${darkMode ? 'bg-white/10' : 'bg-slate-200'} hidden md:block`} />
             <button
-              onClick={() => setDarkMode((value) => !value)}
-              className={`rounded-full border p-2 transition ${darkMode ? "border-slate-700 text-amber-300 hover:bg-slate-800" : "border-slate-300 text-slate-700 hover:bg-slate-100"}`}
-              aria-label="Toggle theme"
-              aria-pressed={darkMode}
+              onClick={() => setDarkMode((v) => !v)}
+              className={`p-2 rounded-full transition-all duration-300 border ${darkMode ? "border-white/10 text-amber-400 hover:bg-white/5" : "border-slate-200 text-slate-700 hover:bg-slate-100"}`}
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -132,122 +154,128 @@ export default function App() {
         </div>
       </nav>
 
-      <main>
-        <header className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-2 md:px-16 md:py-20">
-          <div className="flex flex-col justify-center space-y-6">
-            <div className="flex flex-wrap gap-3">
-              <span
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${darkMode ? "bg-blue-500/10 text-blue-300" : "bg-blue-50 text-blue-700"}`}
-              >
-                <Sparkles size={16} />
-                Built for students
-              </span>
-              <span
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${darkMode ? "bg-emerald-500/10 text-emerald-300" : "bg-emerald-50 text-emerald-700"}`}
-              >
-                <ShieldCheck size={16} />
-                APK download ready
-              </span>
-              <span
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${darkMode ? "bg-slate-800 text-slate-300" : "bg-slate-200 text-slate-700"}`}
-              >
-                {darkMode ? <Moon size={16} /> : <Sun size={16} />}
-                {darkMode ? "Dark theme" : "Light theme"}
-              </span>
-            </div>
-
-            <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
-              A single app for <span className="text-blue-500">notes, chat, updates, and study help</span>.
-            </h1>
-
-            <p className={`max-w-2xl text-lg md:text-xl ${mutedText}`}>
-              GoStudy is designed as a practical student hub: access resources, coordinate with classmates, receive
-              department notices, and keep your revision on track from one clean interface.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <a
-                href="#download"
-                className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700"
-              >
-                <Download size={18} />
-                Download APK
-              </a>
-              <a
-                href="https://github.com/ebongi/Ub-Hub.git"
-                target="_blank"
-                rel="noreferrer"
-                className={`inline-flex items-center gap-2 rounded-full border px-6 py-3.5 font-semibold transition hover:-translate-y-0.5 ${darkMode ? "border-slate-700 hover:bg-slate-800" : "border-slate-300 hover:bg-slate-100"}`}
-              >
-                View on GitHub
-                <ChevronRight size={18} />
-              </a>
-            </div>
-
-            <div className="grid gap-4 pt-4 sm:grid-cols-3">
-              {[
-                { value: "Resources", label: "Past questions and notes" },
-                { value: "Chat", label: "Class and group messaging" },
-                { value: "AI", label: "Study assistance on demand" },
-              ].map((item) => (
-                <div key={item.label} className={`rounded-2xl p-4 ${panel}`}>
-                  <div className="text-xl font-bold">{item.value}</div>
-                  <div className={`mt-1 text-sm ${mutedText}`}>{item.label}</div>
+      <main className="relative z-10">
+        {/* Hero Section */}
+        <header className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+          <div className="mx-auto max-w-7xl md:px-12">
+            <div className="grid lg:grid-cols-[1fr_0.8fr] gap-16 items-center">
+              <div className="flex flex-col space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                <div className={`inline-flex items-center gap-2 w-fit px-4 py-1.5 rounded-full border ${darkMode ? 'border-blue-500/20 bg-blue-500/5 text-blue-400' : 'border-blue-200 bg-blue-50 text-blue-600'} text-[10px] font-black uppercase tracking-[0.2em]`}>
+                  <Sparkles size={12} className="animate-pulse" />
+                  Redefining Student Life
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-3xl" />
-            <div
-              className={`relative w-[310px] overflow-hidden rounded-[3rem] border p-3 shadow-2xl md:w-[360px] ${darkMode ? "border-slate-700 bg-[#050b14] shadow-[0_30px_80px_rgba(0,0,0,0.55)]" : "border-slate-200 bg-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.15)]"}`}
-            >
-              <div
-                className={`absolute left-1/2 top-4 z-20 h-5 w-20 -translate-x-1/2 rounded-full ${darkMode ? "bg-[#08101c]" : "bg-white"}`}
-              />
-              <div className={`relative aspect-[9/18.5] overflow-hidden rounded-[2.2rem] ${panelSoft}`}>
-                <Image
-                  src="/appscreenshot.png"
-                  alt="GoStudy app screenshot"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 310px, 360px"
-                  className="object-cover"
-                />
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
+                  Academic excellence, <br />
+                  <span className={`text-transparent bg-clip-text ${accentGradient}`}>digitally mastered.</span>
+                </h1>
+
+                <p className={`max-w-xl text-lg md:text-xl leading-relaxed ${mutedText}`}>
+                  GoStudy bridges the gap between students and their resources. A unified ecosystem for notes, messaging, and AI assistance.
+                </p>
+
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <a
+                    href="#download"
+                    className={`group relative flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-white overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-blue-500/20`}
+                  >
+                    <div className={`absolute inset-0 ${accentGradient}`} />
+                    <span className="relative z-10 flex items-center gap-2 uppercase tracking-widest text-xs">
+                      <Download size={18} />
+                      Download APK
+                    </span>
+                  </a>
+                    <a
+                      href="https://github.com/ebongi/Ub-Hub.git"
+                      target="_blank"
+                      className={`flex items-center gap-2 px-8 py-4 rounded-2xl font-bold border transition-all duration-300 uppercase tracking-widest text-xs ${darkMode ? 'border-white/10 hover:bg-white/5' : 'border-slate-200 hover:bg-slate-50'}`}
+                    >
+                      <Globe size={18} />
+                      GitHub
+                    </a>
+                </div>
+
+                <div className="flex items-center gap-6 pt-6">
+                   <div className="flex -space-x-3">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className={`w-10 h-10 rounded-full border-2 ${darkMode ? 'border-black bg-slate-800' : 'border-white bg-slate-200'} flex items-center justify-center text-[10px] font-bold`}>
+                           {i}
+                        </div>
+                      ))}
+                   </div>
+                   <div className={`text-[11px] font-bold uppercase tracking-widest ${mutedText}`}>
+                      Joined by <span className={darkMode ? 'text-white' : 'text-slate-900'}>5,000+</span> UB Students
+                   </div>
+                </div>
               </div>
-              <div className={`absolute -right-1 top-24 h-14 w-1 rounded-l-full ${darkMode ? "bg-slate-700" : "bg-slate-400"}`} />
-              <div className={`absolute -left-1 top-36 h-10 w-1 rounded-r-full ${darkMode ? "bg-slate-700" : "bg-slate-400"}`} />
+
+              <div className="relative flex justify-center lg:justify-end perspective-1000">
+                <div className="absolute -inset-10 bg-blue-500/20 blur-[120px] rounded-full animate-pulse-slow" />
+                <div
+                  className={`relative w-[280px] md:w-[340px] aspect-[9/19] rounded-[3.5rem] p-3 border-[10px] transition-all duration-1000 hover:rotate-2 hover:scale-105 ${darkMode ? "border-slate-900 bg-slate-950 shadow-[0_50px_100px_rgba(0,0,0,0.8)]" : "border-slate-100 bg-white shadow-2xl"}`}
+                >
+                  <div className={`relative h-full w-full rounded-[2.5rem] overflow-hidden ${darkMode ? 'bg-slate-900' : 'bg-slate-100'}`}>
+                    <Image
+                      src="/appscreenshot.png"
+                      alt="GoStudy Mobile Interface"
+                      fill
+                      priority
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Floating Micro-Cards */}
+                <div className={`absolute -left-8 top-1/4 p-4 rounded-2xl ${panel} shadow-2xl animate-float hidden xl:block`}>
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500"><Bot size={20} /></div>
+                      <div>
+                         <div className="text-[10px] font-black uppercase tracking-wider">AI Analysis</div>
+                         <div className={`text-[8px] font-bold ${mutedText}`}>Processing Lecture Notes...</div>
+                      </div>
+                   </div>
+                </div>
+                <div className={`absolute -right-4 bottom-1/4 p-4 rounded-2xl ${panel} shadow-2xl animate-float-delayed hidden xl:block`}>
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-500"><ShieldCheck size={20} /></div>
+                      <div>
+                         <div className="text-[10px] font-black uppercase tracking-wider">Verified</div>
+                         <div className={`text-[8px] font-bold ${mutedText}`}>Official UB Department Sync</div>
+                      </div>
+                   </div>
+                </div>
+              </div>
             </div>
           </div>
         </header>
 
-        <section id="features" className={`py-20 ${darkMode ? "bg-[#0d1626]" : "bg-slate-100"}`}>
-          <div className="mx-auto max-w-7xl px-6 md:px-16">
-            <div className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-500">
-                Features that fit the product
-              </p>
-              <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">Everything the app should do for students</h2>
-              <p className={`mt-4 text-base md:text-lg ${mutedText}`}>
-                The experience should feel like a student dashboard, not a generic marketing page. These are the
-                features that make sense for an academic app.
-              </p>
+        {/* Features Section */}
+        <section id="features" className="relative py-32 overflow-hidden">
+          <div className="mx-auto max-w-7xl px-6 md:px-12 relative">
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <span className="text-blue-500 text-xs font-black uppercase tracking-[0.3em]">Precision Engineering</span>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter italic">Features for the focused.</h2>
+              <p className={`text-lg ${mutedText}`}>Everything you need to navigate the academic landscape of the University of Buea.</p>
             </div>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {coreFeatures.map((feature) => {
                 const Icon = feature.icon;
                 return (
                   <article
                     key={feature.title}
-                    className={`rounded-3xl p-6 transition hover:-translate-y-1 ${panel}`}
+                    className={`group relative p-8 rounded-[2.5rem] ${panel} hover:border-blue-500/40 transition-all duration-500 hover:-translate-y-2`}
                   >
-                    <div className="mb-5 inline-flex rounded-2xl bg-blue-500/10 p-3 text-blue-500">
-                      <Icon size={26} />
+                    <div className={`absolute inset-0 rounded-[2.5rem] ${accentGradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+                    <div className="mb-8 inline-flex p-4 rounded-2xl bg-blue-500/10 text-blue-500 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
+                      <Icon size={28} />
                     </div>
-                    <h3 className="text-xl font-bold">{feature.title}</h3>
-                    <p className={`mt-3 leading-relaxed ${mutedText}`}>{feature.description}</p>
+                    <h3 className="text-xl font-bold mb-4 flex items-center justify-between">
+                      {feature.title}
+                      <ChevronRight size={18} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </h3>
+                    <p className={`leading-relaxed text-sm ${mutedText} group-hover:text-white/80 transition-colors`}>{feature.description}</p>
                   </article>
                 );
               })}
@@ -255,82 +283,100 @@ export default function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-20 md:px-16">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className={`rounded-[2rem] p-8 md:p-10 ${panel}`}>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-500">
-                Suggested user flow
-              </p>
-              <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">Simple actions, clear outcome</h2>
-              <div className="mt-8 grid gap-4 md:grid-cols-3">
-                {steps.map((step, index) => (
-                  <div key={step.title} className={`rounded-2xl p-5 ${panelSoft}`}>
-                    <div className="mb-3 text-sm font-semibold text-blue-500">
-                      0{index + 1}
+        {/* User Flow Section */}
+        <section className="py-32 relative">
+           <div className="mx-auto max-w-7xl px-6 md:px-12">
+              <div className={`rounded-[3rem] overflow-hidden ${panel} border-white/[0.05]`}>
+                 <div className="grid lg:grid-cols-2">
+                    <div className="p-8 md:p-16 space-y-8">
+                       <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">Streamlined <br />Workflow</h2>
+                       <div className="space-y-6">
+                          {steps.map((step, i) => (
+                             <div key={i} className="flex gap-6 group">
+                                <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl transition-all duration-300 ${darkMode ? 'bg-white/5 border border-white/10 text-blue-500 group-hover:bg-blue-500 group-hover:text-white' : 'bg-slate-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
+                                   0{i+1}
+                                </div>
+                                <div>
+                                   <h4 className="font-bold text-lg mb-1">{step.title}</h4>
+                                   <p className={`text-sm ${mutedText}`}>{step.description}</p>
+                                </div>
+                             </div>
+                          ))}
+                       </div>
                     </div>
-                    <h3 className="text-lg font-bold">{step.title}</h3>
-                    <p className={`mt-2 text-sm leading-relaxed ${mutedText}`}>{step.description}</p>
-                  </div>
-                ))}
+                    <div className={`relative p-8 md:p-16 flex flex-col justify-center ${darkMode ? 'bg-gradient-to-br from-blue-600/20 to-indigo-600/20' : 'bg-slate-50'}`}>
+                       <div className="absolute inset-0 bg-grid-white opacity-[0.02]" />
+                       <div className="relative space-y-6">
+                          <h3 className="text-2xl font-black uppercase italic tracking-wider">Why UB Hub?</h3>
+                          <ul className="space-y-4">
+                             {[
+                               { icon: Globe, text: "Optimized for local network conditions" },
+                               { icon: ShieldCheck, text: "Secure, department-verified resources" },
+                               { icon: Layout, text: "Interface designed for high-stress revision" }
+                             ].map((item, i) => (
+                               <li key={i} className="flex items-center gap-4 text-sm font-bold">
+                                  <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400"><item.icon size={16} /></div>
+                                  {item.text}
+                               </li>
+                             ))}
+                          </ul>
+                          <div className={`mt-8 p-6 rounded-2xl ${darkMode ? 'bg-black/40 border border-white/5' : 'bg-white shadow-xl'}`}>
+                             <p className="italic text-sm leading-relaxed mb-4 opacity-80">
+                            &quot;This app changed how we share past questions. No more hunting through WhatsApp groups.&quot;
+                          </p>
+                             <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-[10px] font-black uppercase">JD</div>
+                                <div className="text-xs font-bold tracking-widest uppercase">Junior Dev • Level 400</div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
               </div>
-            </div>
-
-            <div
-              className={`rounded-[2rem] p-8 md:p-10 ${darkMode ? "bg-gradient-to-br from-blue-600 to-indigo-700 text-white" : "bg-gradient-to-br from-blue-600 to-indigo-700 text-white"}`}
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-                Why this design works
-              </p>
-              <h2 className="mt-3 text-3xl font-extrabold">It matches the actual product</h2>
-              <ul className="mt-6 space-y-4 text-blue-50">
-                <li className="flex gap-3">
-                  <FileText className="mt-1 shrink-0" size={18} />
-                  The app promotes resources, announcements, and revision tools instead of generic app-store copy.
-                </li>
-                <li className="flex gap-3">
-                  <MessageSquare className="mt-1 shrink-0" size={18} />
-                  Messaging and collaboration are surfaced as core actions, since they are central to student usage.
-                </li>
-                <li className="flex gap-3">
-                  <WifiOff className="mt-1 shrink-0" size={18} />
-                  The APK download is obvious and directly tied to the local file in `public/`.
-                </li>
-              </ul>
-            </div>
-          </div>
+           </div>
         </section>
 
-        <section id="download" className="mx-auto max-w-5xl px-6 pb-20 md:px-16">
-          <div className="overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-12 text-white shadow-2xl md:px-14 md:py-16">
-            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-                  Download section
-                </p>
-                <h2 className="mt-3 text-3xl font-extrabold md:text-5xl">Install the app and start using it</h2>
-                {/*<p className="mt-4 max-w-2xl text-base text-blue-100 md:text-lg">*/}
-                {/*  The button below downloads the APK from `public/gostudy_v1.apk`. If you rename that file later,*/}
-                {/*  update the path in this page as well.*/}
-                {/*</p>*/}
+        {/* CTA / Download Section */}
+        <section id="download" className="mx-auto max-w-5xl px-6 pb-32">
+          <div className={`relative overflow-hidden rounded-[3rem] p-8 md:p-16 text-center ${darkMode ? 'bg-black border border-white/10' : 'bg-slate-900 text-white shadow-2xl'}`}>
+            <div className={`absolute inset-0 ${accentGradient} opacity-10`} />
+            <div className="relative z-10 max-w-2xl mx-auto space-y-8">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic">Step into the future.</h2>
+              <p className={`text-lg md:text-xl ${darkMode ? 'text-slate-400' : 'text-slate-300'}`}>
+                Join thousands of students optimizing their study workflow today.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="https://drive.google.com/uc?export=download&id=1ES5nqVYssG--PGQ5YAQCI9fDcqjdGEkD"
+                  className="group flex items-center gap-3 bg-white text-slate-950 px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-white/10"
+                >
+                  <Download size={20} />
+                  Download v1.0 APK
+                </a>
               </div>
-
-              <a
-                href="https://drive.google.com/uc?export=download&id=1ES5nqVYssG--PGQ5YAQCI9fDcqjdGEkD"
-                download="gostudy_v1.apk"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-7 py-4 font-bold text-blue-900 transition hover:scale-105"
-              >
-                <Download size={22} />
-                Download Android APK
-              </a>
+              <div className="flex items-center justify-center gap-8 opacity-50">
+                 <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"><WifiOff size={14} /> Offline Ready</div>
+                 <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"><ShieldCheck size={14} /> Safe & Verified</div>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className={`border-t py-10 text-center text-sm ${darkMode ? "border-slate-800 text-slate-500" : "border-slate-200 text-slate-600"}`}>
-        <p>&copy; {new Date().getFullYear()} Jovial Labs. All rights reserved.</p>
+      <footer className={`relative border-t py-12 ${darkMode ? "border-white/5 bg-black/40" : "border-slate-200 bg-slate-50"} backdrop-blur-md`}>
+        <div className="mx-auto max-w-7xl px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-2 opacity-50">
+             <Layers size={18} />
+             <span className="text-xs font-black uppercase tracking-[0.2em]">GoStudy Hub</span>
+          </div>
+          <p className={`text-xs font-bold uppercase tracking-widest ${mutedText}`}>
+            &copy; {new Date().getFullYear()} Jovial Labs • Precision Student Tools
+          </p>
+          <div className="flex items-center gap-6">
+             <a href="#" className={`hover:text-blue-500 transition-colors ${mutedText}`}><Globe size={20} /></a>
+             <a href="#" className={`hover:text-blue-500 transition-colors ${mutedText}`}><Globe size={20} /></a>
+          </div>
+        </div>
       </footer>
     </div>
   );

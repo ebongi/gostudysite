@@ -10,17 +10,75 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 5s ease-in-out infinite 1s;
+  --animate-pulse-slow: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.1); }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --scrollbar-track: #f8fafc;
+  --scrollbar-thumb: #cbd5e1;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --scrollbar-track: #030014;
+    --scrollbar-thumb: #1e293b;
   }
+}
+
+/* For manual dark mode toggle in page.tsx */
+.dark-theme {
+  --scrollbar-track: #030014;
+  --scrollbar-thumb: #1e293b;
+}
+
+.light-theme {
+  --scrollbar-track: #f8fafc;
+  --scrollbar-thumb: #cbd5e1;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }
