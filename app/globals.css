@@ -1,70 +1,117 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  color-scheme: light;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #202124;
+  --surface: #ffffff;
+  --surface-alt: #f8f9fa;
+  --muted: #5f6368;
+  --subtle: #80868b;
+  --line: #e8eaed;
+  --scrollbar-track: #f8f9fa;
+  --scrollbar-thumb: #dadce0;
+
+  /* Material-inspired accent palette */
+  --brand-blue: #1a73e8;
+  --brand-blue-tint: #e8f0fe;
+  --brand-red: #ea4335;
+  --brand-red-tint: #fce8e6;
+  --brand-yellow: #f9ab00;
+  --brand-yellow-tint: #fef7e0;
+  --brand-green: #1e8e3e;
+  --brand-green-tint: #e6f4ea;
+
+  /* Constant brand fill for solid buttons — stays legible against white text in both themes */
+  --cta: #1a73e8;
+  --cta-hover: #1557b0;
+  --cta-foreground: #ffffff;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #131316;
+  --foreground: #e8eaed;
+  --surface: #1e1f22;
+  --surface-alt: #1a1b1e;
+  --muted: #9aa0a6;
+  --subtle: #80868b;
+  --line: #3c4043;
+  --scrollbar-track: #1a1b1e;
+  --scrollbar-thumb: #3c4043;
+
+  /* Google's Material dark-theme accent tones */
+  --brand-blue: #8ab4f8;
+  --brand-blue-tint: rgba(138, 180, 248, 0.16);
+  --brand-red: #f28b82;
+  --brand-red-tint: rgba(242, 139, 130, 0.16);
+  --brand-yellow: #fdd663;
+  --brand-yellow-tint: rgba(253, 214, 99, 0.16);
+  --brand-green: #81c995;
+  --brand-green-tint: rgba(129, 201, 149, 0.16);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-delayed: float-delayed 5s ease-in-out infinite 1s;
-  --animate-pulse-slow: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-tint: var(--brand-blue-tint);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-tint: var(--brand-red-tint);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-tint: var(--brand-yellow-tint);
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-tint: var(--brand-green-tint);
+
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-foreground: var(--cta-foreground);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s ease-out both;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-}
-
-@keyframes float-delayed {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-15px) rotate(-1deg); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.1); }
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --scrollbar-track: #f8fafc;
-  --scrollbar-thumb: #cbd5e1;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --scrollbar-track: #030014;
-    --scrollbar-thumb: #1e293b;
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
   }
 }
 
-/* For manual dark mode toggle in page.tsx */
-.dark-theme {
-  --scrollbar-track: #030014;
-  --scrollbar-thumb: #1e293b;
-}
-
-.light-theme {
-  --scrollbar-track: #f8fafc;
-  --scrollbar-thumb: #cbd5e1;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-/* Custom Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -76,9 +123,5 @@ body {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
-}
-
-.perspective-1000 {
-  perspective: 1000px;
+  background: var(--brand-blue);
 }
