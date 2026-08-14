@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { GraduationCap } from "lucide-react";
 
-// TODO: swap in the real support WhatsApp number before launch.
-const WHATSAPP_URL = "https://wa.me/237000000000";
+const WHATSAPP_URL = "https://wa.me/237682397481";
 
 export default function Footer() {
   return (
@@ -47,6 +46,11 @@ export default function Footer() {
             <li>
               <Link href="/support" className="hover:text-brand-blue">
                 Help &amp; Contact
+              </Link>
+            </li>
+            <li>
+              <Link href="/install" className="hover:text-brand-blue">
+                How to Install
               </Link>
             </li>
             <li>

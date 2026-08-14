@@ -9,8 +9,8 @@ export const metadata: Metadata = {
     "Get help with GO Study — course materials, AI tutor, and your account.",
 };
 
-// TODO: swap in the real support WhatsApp number and email before launch.
-const WHATSAPP_URL = "https://wa.me/237000000000";
+// TODO: swap in the real support email before launch.
+const WHATSAPP_URL = "https://wa.me/237682397481";
 const SUPPORT_EMAIL = "support@gostudy.app";
 
 const faqs = [

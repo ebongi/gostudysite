@@ -18,8 +18,11 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold">
+      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-5 sm:px-8">
+        <Link
+          href="/"
+          className="flex items-center gap-2 justify-self-start text-lg font-bold"
+        >
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-cta text-cta-foreground">
             <GraduationCap size={20} />
           </span>
@@ -38,7 +41,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-self-end gap-2">
           <ThemeToggle />
           <a
             href={PLAY_STORE_URL}
