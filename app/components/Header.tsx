@@ -17,7 +17,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line bg-surface">
       <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-5 sm:px-8">
         <Link
           href="/"

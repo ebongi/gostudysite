@@ -12,6 +12,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { accentClasses, features, type Accent } from "../lib/features";
+import { stats } from "../lib/stats";
 
 export const metadata: Metadata = {
   title: "App Preview — GO Study",
@@ -22,13 +23,6 @@ export const metadata: Metadata = {
 // TODO: replace with the real Google Play listing once GO Study is published.
 const PLAY_STORE_URL = "#";
 const WHATSAPP_URL = "https://wa.me/237682397481";
-
-const stats: { value: string; label: string }[] = [
-  { value: "10", label: "Core features in one app" },
-  { value: "EN + FR", label: "Fully bilingual" },
-  { value: "0", label: "Data needed for offline AI chat" },
-  { value: "24/7", label: "Offline library access" },
-];
 
 const galleryItems: {
   label: string;

@@ -6,53 +6,54 @@
   color-scheme: light;
 
   --background: #ffffff;
-  --foreground: #202124;
+  --foreground: #1f1f1f;
   --surface: #ffffff;
-  --surface-alt: #f8f9fa;
-  --muted: #5f6368;
-  --subtle: #80868b;
-  --line: #e8eaed;
-  --scrollbar-track: #f8f9fa;
-  --scrollbar-thumb: #dadce0;
+  --surface-alt: #f5f7fa;
+  --muted: #4b5563;
+  --subtle: #6b7280;
+  --line: #e3e7ec;
+  --scrollbar-track: #f5f7fa;
+  --scrollbar-thumb: #d1d7e0;
 
-  /* Material-inspired accent palette */
-  --brand-blue: #1a73e8;
-  --brand-blue-tint: #e8f0fe;
-  --brand-red: #ea4335;
-  --brand-red-tint: #fce8e6;
-  --brand-yellow: #f9ab00;
-  --brand-yellow-tint: #fef7e0;
-  --brand-green: #1e8e3e;
-  --brand-green-tint: #e6f4ea;
+  /* Coursera-style accent palette — one strong blue for brand/links/CTAs */
+  --brand-blue: #0056d2;
+  --brand-blue-tint: #e7f0ff;
+  --brand-red: #dc2626;
+  --brand-red-tint: #fde8e8;
+  --brand-yellow: #e9a227;
+  --brand-yellow-tint: #fdf3de;
+  --brand-green: #0f9d58;
+  --brand-green-tint: #e3f6ea;
 
-  /* Constant brand fill for solid buttons — stays legible against white text in both themes */
-  --cta: #1a73e8;
-  --cta-hover: #1557b0;
+  /* Constant brand-blue fill for solid buttons — stays legible against
+     white text in both themes without needing a .dark override */
+  --cta: #0056d2;
+  --cta-hover: #00419e;
   --cta-foreground: #ffffff;
 }
 
 .dark {
   color-scheme: dark;
 
-  --background: #131316;
-  --foreground: #e8eaed;
-  --surface: #1e1f22;
-  --surface-alt: #1a1b1e;
-  --muted: #9aa0a6;
-  --subtle: #80868b;
-  --line: #3c4043;
-  --scrollbar-track: #1a1b1e;
-  --scrollbar-thumb: #3c4043;
+  --background: #0b1220;
+  --foreground: #e8edf5;
+  --surface: #121a2b;
+  --surface-alt: #0f1626;
+  --muted: #9aa7bd;
+  --subtle: #6b7690;
+  --line: #232d42;
+  --scrollbar-track: #0f1626;
+  --scrollbar-thumb: #2c374d;
 
-  /* Google's Material dark-theme accent tones */
-  --brand-blue: #8ab4f8;
-  --brand-blue-tint: rgba(138, 180, 248, 0.16);
-  --brand-red: #f28b82;
-  --brand-red-tint: rgba(242, 139, 130, 0.16);
-  --brand-yellow: #fdd663;
-  --brand-yellow-tint: rgba(253, 214, 99, 0.16);
-  --brand-green: #81c995;
-  --brand-green-tint: rgba(129, 201, 149, 0.16);
+  /* Lightened tones for legibility on dark navy backgrounds */
+  --brand-blue: #5b9dff;
+  --brand-blue-tint: rgba(91, 157, 255, 0.16);
+  --brand-red: #f17171;
+  --brand-red-tint: rgba(241, 113, 113, 0.16);
+  --brand-yellow: #f0b429;
+  --brand-yellow-tint: rgba(240, 180, 41, 0.16);
+  --brand-green: #34c48c;
+  --brand-green-tint: rgba(52, 196, 140, 0.16);
 }
 
 @theme inline {
@@ -80,6 +81,7 @@
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-fade-up: fade-up 0.7s ease-out both;
+  --animate-kenburns: kenburns 7s ease-out both;
 }
 
 @keyframes float {
@@ -100,6 +102,23 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* Respect visitors who've asked for reduced motion: freeze the slideshow's
+   zoom/pan and cut crossfades down to an instant swap. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns {
+    animation: none;
   }
 }
 
