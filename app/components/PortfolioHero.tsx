@@ -21,29 +21,29 @@ export default function PortfolioHero() {
         variants={item}
         className="font-mono text-xs tracking-widest text-muted uppercase"
       >
-        {"// [Your Name]"}
+        {"// Ebong Sume"}
       </motion.p>
       <motion.h1
         variants={item}
         className="mt-4 text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl"
       >
-        Build, Learn &amp; Ship Software
+        Software &amp; AI Engineer
       </motion.h1>
       <motion.p variants={item} className="mt-4 max-w-xl text-lg text-muted">
-        A developer&rsquo;s playbook.
+        Building cross-platform apps with Flutter &amp; Dart.
       </motion.p>
       <motion.div
         variants={item}
         className="mt-6 flex flex-wrap items-center gap-2 font-mono text-xs tracking-wide text-subtle uppercase"
       >
         <span className="grid h-6 w-6 place-items-center rounded-full bg-cta text-[10px] font-bold text-cta-foreground">
-          YN
+          ES
         </span>
-        <span>[Your Name]</span>
+        <span>Ebong Sume</span>
         <span className="text-line">•</span>
         <span>1 App</span>
         <span className="text-line">•</span>
-        <span>5 Tools</span>
+        <span>12 Tools</span>
         <span className="text-line">•</span>
         <a href="#about" className="transition-colors hover:text-foreground">
           About

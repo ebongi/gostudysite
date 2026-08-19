@@ -8,6 +8,12 @@ export type Chip = {
   href?: string;
 };
 
+export type ChipGroup = {
+  label: string;
+  icon: LucideIcon;
+  chips: string[];
+};
+
 function ChipView({ chip }: { chip: Chip }) {
   const Icon = chip.icon;
   const className =
@@ -23,10 +29,33 @@ function ChipView({ chip }: { chip: Chip }) {
   );
 
   if (chip.variant === "real" && chip.href) {
+    const linkClassName = `${className} transition-colors hover:text-brand-blue`;
+
+    if (chip.href.startsWith("/")) {
+      return (
+        <Link href={chip.href} className={linkClassName}>
+          {content}
+        </Link>
+      );
+    }
+
+    if (chip.href.startsWith("mailto:")) {
+      return (
+        <a href={chip.href} className={linkClassName}>
+          {content}
+        </a>
+      );
+    }
+
     return (
-      <Link href={chip.href} className={`${className} transition-colors hover:text-brand-blue`}>
+      <a
+        href={chip.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={linkClassName}
+      >
         {content}
-      </Link>
+      </a>
     );
   }
 
@@ -41,6 +70,7 @@ export default function PortfolioCard({
   title,
   description,
   chips,
+  chipGroups,
 }: {
   index: number;
   icon: LucideIcon;
@@ -49,6 +79,7 @@ export default function PortfolioCard({
   title: string;
   description: string;
   chips?: Chip[];
+  chipGroups?: ChipGroup[];
 }) {
   return (
     <div className="h-full rounded-2xl border border-line bg-surface p-6 shadow-sm transition-shadow hover:shadow-md sm:p-7">
@@ -74,6 +105,32 @@ export default function PortfolioCard({
           {chips.map((chip) => (
             <ChipView key={chip.label} chip={chip} />
           ))}
+        </div>
+      )}
+
+      {chipGroups && chipGroups.length > 0 && (
+        <div className="mt-5 space-y-4">
+          {chipGroups.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <div key={group.label}>
+                <p className="flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-widest text-subtle uppercase">
+                  <GroupIcon size={12} />
+                  {group.label}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {group.chips.map((label) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center rounded-full border border-line bg-surface-alt px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-foreground uppercase"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
