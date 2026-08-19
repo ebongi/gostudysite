@@ -70,6 +70,7 @@
   --color-subtle: var(--subtle);
   --color-line: var(--line);
   --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 
   --color-brand-blue: var(--brand-blue);
   --color-brand-blue-tint: var(--brand-blue-tint);
@@ -133,6 +134,12 @@
     var(--gradient-navy-from),
     var(--gradient-navy-to)
   );
+}
+
+/* Faint dot-grid texture for the portfolio page's minimal background */
+.dot-grid-bg {
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Small ornamental line-and-dots divider used under section headings */
