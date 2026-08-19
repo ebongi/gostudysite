@@ -30,6 +30,11 @@
   --cta: #0056d2;
   --cta-hover: #00419e;
   --cta-foreground: #ffffff;
+
+  /* Constant navy-blue gradient for the hero/feature/download "chrome"
+     sections — same self-contained pattern as --cta, not themed by .dark */
+  --gradient-navy-from: #0a1a3f;
+  --gradient-navy-to: #1958d9;
 }
 
 .dark {
@@ -120,6 +125,30 @@
   .animate-kenburns {
     animation: none;
   }
+}
+
+.bg-navy-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-navy-from),
+    var(--gradient-navy-to)
+  );
+}
+
+/* Small ornamental line-and-dots divider used under section headings */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  height: 1px;
+  width: 2.5rem;
+  background: currentColor;
+  opacity: 0.35;
 }
 
 body {

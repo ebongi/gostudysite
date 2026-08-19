@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { GraduationCap, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
+  { href: "/#about", label: "About" },
   { href: "/#features", label: "Features" },
+  { href: "/#screenshots", label: "Screenshots" },
   { href: "/support", label: "Support" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 // TODO: replace with the real Google Play listing once GO Study is published.
@@ -15,26 +19,43 @@ const PLAY_STORE_URL = "#";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-surface">
+    <header
+      className={`sticky top-0 z-50 ${
+        isHome ? "bg-navy-gradient" : "border-b border-line bg-surface"
+      }`}
+    >
       <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-5 sm:px-8">
         <Link
           href="/"
-          className="flex items-center gap-2 justify-self-start text-lg font-bold"
+          className={`flex items-center gap-2 justify-self-start text-lg font-bold ${
+            isHome ? "text-white" : "text-foreground"
+          }`}
         >
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-cta text-cta-foreground">
             <GraduationCap size={20} />
           </span>
-          GO <span className="text-brand-blue">Study</span>
+          GO{" "}
+          <span className={isHome ? "text-white" : "text-brand-blue"}>
+            Study
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-medium text-muted md:flex">
+        <nav
+          className={`hidden items-center gap-7 text-xs font-semibold tracking-wide uppercase md:flex ${
+            isHome ? "text-white/85" : "text-muted"
+          }`}
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="transition-colors hover:text-brand-blue"
+              className={`transition-colors ${
+                isHome ? "hover:text-white" : "hover:text-brand-blue"
+              }`}
             >
               {link.label}
             </Link>
@@ -42,12 +63,16 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center justify-self-end gap-2">
-          <ThemeToggle />
+          <ThemeToggle tone={isHome ? "inverted" : "default"} />
           <a
             href={PLAY_STORE_URL}
-            className="hidden rounded-full bg-cta px-5 py-2.5 text-sm font-semibold text-cta-foreground shadow-sm transition-colors hover:bg-cta-hover md:inline-block"
+            className={`hidden rounded-full px-5 py-2.5 text-xs font-bold tracking-wide uppercase shadow-sm transition-colors md:inline-block ${
+              isHome
+                ? "border border-white/50 text-white hover:bg-white/10"
+                : "bg-cta text-cta-foreground hover:bg-cta-hover"
+            }`}
           >
-            Get the app
+            Download
           </a>
 
           <button
@@ -55,7 +80,11 @@ export default function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={open}
-            className="grid h-10 w-10 place-items-center rounded-full text-foreground hover:bg-surface-alt md:hidden"
+            className={`grid h-10 w-10 place-items-center rounded-full md:hidden ${
+              isHome
+                ? "text-white hover:bg-white/10"
+                : "text-foreground hover:bg-surface-alt"
+            }`}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -78,7 +107,7 @@ export default function Header() {
             href={PLAY_STORE_URL}
             className="mt-2 block rounded-full bg-cta px-5 py-3 text-center text-sm font-semibold text-cta-foreground"
           >
-            Get the app
+            Download
           </a>
         </div>
       )}

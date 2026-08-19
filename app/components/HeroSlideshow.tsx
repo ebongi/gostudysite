@@ -28,7 +28,7 @@ export default function HeroSlideshow() {
 
   return (
     <div
-      className="absolute inset-0 -z-10 overflow-hidden bg-[#111826]"
+      className="absolute inset-0 -z-10 overflow-hidden bg-[#0a1a3f]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -54,9 +54,10 @@ export default function HeroSlideshow() {
         ))}
       </div>
 
-      {/* Fixed dark-navy overlay (independent of the light/dark theme tokens)
-          so white hero text stays legible against every photo. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111826]/75 via-[#111826]/35 to-[#111826]/80" />
+      {/* Fixed navy-to-blue gradient tint (independent of the light/dark
+          theme tokens) — matches the site's brand-chrome gradient and keeps
+          white hero text legible against every photo. */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a3f]/92 via-[#123a8a]/85 to-[#1958d9]/78" />
 
       <div className="absolute inset-x-0 bottom-6 z-10 flex justify-center gap-2">
         {SLIDES.map((src, i) => (
