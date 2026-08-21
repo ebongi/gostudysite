@@ -15,9 +15,6 @@ const navLinks = [
   { href: "/#contact", label: "Contact" },
 ];
 
-// TODO: replace with the real Google Play listing once GO Study is published.
-const PLAY_STORE_URL = "#";
-
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -65,8 +62,8 @@ export default function Header() {
 
         <div className="flex items-center justify-self-end gap-2">
           <ThemeToggle tone={isHome ? "inverted" : "default"} />
-          <a
-            href={PLAY_STORE_URL}
+          <Link
+            href="/install"
             className={`hidden rounded-full px-5 py-2.5 text-xs font-bold tracking-wide uppercase shadow-sm transition-colors md:inline-block ${
               isHome
                 ? "border border-white/50 text-white hover:bg-white/10"
@@ -74,7 +71,7 @@ export default function Header() {
             }`}
           >
             Download
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -104,12 +101,13 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <a
-            href={PLAY_STORE_URL}
+          <Link
+            href="/install"
+            onClick={() => setOpen(false)}
             className="mt-2 block rounded-full bg-cta px-5 py-3 text-center text-sm font-semibold text-cta-foreground"
           >
             Download
-          </a>
+          </Link>
         </div>
       )}
     </header>
