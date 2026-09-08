@@ -1,192 +1,172 @@
 import type { Metadata } from "next";
-import { Mail, MessageCircle, ShieldAlert, Trash2 } from "lucide-react";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CornerMarks from "../components/CornerMarks";
+import {
+  deletedOnAccountDeletion,
+  deletionDays,
+  retainedOnAccountDeletion,
+  supportEmail,
+  whatsappNumber,
+  whatsappUrl,
+} from "../lib/content";
 
 export const metadata: Metadata = {
-  title: "Delete My Account — GO Study",
+  title: "Delete My Account — GoStudy",
   description:
-    "How to delete your GO Study account and all of its data, with or without the app installed.",
+    "How to delete your GoStudy account and all of its data, with or without the app installed.",
 };
-
-const WHATSAPP_URL = "https://wa.me/237682397481";
-const WHATSAPP_NUMBER = "+237 682 397 481";
-const SUPPORT_EMAIL = "sumeebong7@gmail.com";
-const DELETION_DAYS = 7;
-
-const deletedItems = [
-  "Your account and login credentials",
-  "Your profile, avatar and study statistics",
-  "Chat messages and direct messages you sent",
-  "Saved course materials and offline library entries",
-  "Marketplace listings, active and completed",
-  "Tasks, exam schedule, study plans and quiz history",
-];
-
-const retainedItems = [
-  "Payment and transaction records, kept for accounting and tax obligations",
-  "Transcript request records held by the university as official academic documents",
-  "Minimal abuse records where an account was closed for a safety breach",
-];
 
 export default function DeleteAccountPage() {
   return (
     <>
       <Header />
-      <main className="flex-1">
-        <section className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 md:py-24">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-blue-tint bg-brand-blue-tint px-4 py-1.5 text-xs font-semibold text-brand-blue">
-            Data &amp; privacy
-          </span>
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-            Delete my account
+      <main className="flex-1 px-6 pt-[72px] pb-[84px]">
+        <div className="mx-auto max-w-[840px]">
+          <Link
+            href="/"
+            className="font-mono text-[11px] tracking-[0.16em] text-accent-light hover:text-accent"
+          >
+            ← BACK TO HOME
+          </Link>
+          <h1 className="mt-[26px] mb-2.5 text-[clamp(32px,4.4vw,48px)] font-extrabold tracking-[-0.025em] text-heading">
+            Delete My Account
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            You can delete your GO Study account and its data at any time,
+          <p className="mb-[52px] max-w-[62ch] text-[17px] leading-relaxed text-muted">
+            You can delete your GoStudy account and its data at any time,
             with or without the app installed. Pick whichever route applies
             to you.
           </p>
-        </section>
 
-        {/* Routes */}
-        <section className="bg-surface-alt py-16 md:py-20">
-          <div className="mx-auto grid max-w-4xl gap-6 px-5 sm:grid-cols-2 sm:px-8">
-            <div className="rounded-3xl border border-line bg-surface p-7 shadow-sm sm:p-8">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-blue-tint text-brand-blue">
-                <Trash2 size={20} />
-              </span>
-              <p className="mt-4 text-xs font-semibold tracking-widest text-brand-blue uppercase">
-                Route A — In the app
-              </p>
-              <h2 className="mt-2 text-xl font-bold text-foreground">
+          <div className="mb-14 grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(290px,1fr))]">
+            <div
+              className="relative px-8 pt-8 pb-[34px]"
+              style={{ border: "1px solid rgba(125,211,252,0.26)" }}
+            >
+              <CornerMarks color="#38BDF8" />
+              <div className="mb-3.5 font-mono text-[10px] tracking-[0.16em] text-accent-light">
+                ROUTE A — IN THE APP
+              </div>
+              <h2 className="mb-[18px] text-xl font-bold text-heading">
                 Immediate and permanent
               </h2>
-              <ol className="mt-5 space-y-3 text-sm text-muted">
-                <li className="flex gap-3">
-                  <span className="font-mono text-xs text-brand-blue">01</span>
+              <ol className="m-0 mb-5 flex list-none flex-col gap-3 p-0">
+                <li className="flex gap-3 text-[15px] leading-snug text-[#C7D6E9]">
+                  <span className="flex-shrink-0 pt-[3px] font-mono text-[11px] text-accent">
+                    01
+                  </span>
                   <span>
-                    Open GO Study and go to{" "}
-                    <strong className="font-semibold text-foreground">
-                      Settings
-                    </strong>
+                    Open GoStudy and go to <strong>Settings</strong>
                   </span>
                 </li>
-                <li className="flex gap-3">
-                  <span className="font-mono text-xs text-brand-blue">02</span>
+                <li className="flex gap-3 text-[15px] leading-snug text-[#C7D6E9]">
+                  <span className="flex-shrink-0 pt-[3px] font-mono text-[11px] text-accent">
+                    02
+                  </span>
                   <span>
-                    Tap{" "}
-                    <strong className="font-semibold text-foreground">
-                      Delete Account
-                    </strong>
+                    Tap <strong>Delete Account</strong>
                   </span>
                 </li>
-                <li className="flex gap-3">
-                  <span className="font-mono text-xs text-brand-blue">03</span>
+                <li className="flex gap-3 text-[15px] leading-snug text-[#C7D6E9]">
+                  <span className="flex-shrink-0 pt-[3px] font-mono text-[11px] text-accent">
+                    03
+                  </span>
                   <span>
                     Confirm. Your account and all associated data are
                     deleted immediately and permanently.
                   </span>
                 </li>
               </ol>
-              <p className="mt-5 text-xs leading-relaxed text-subtle">
-                There&rsquo;s no recovery window and no undo. Export anything
-                you want to keep first.
+              <p className="m-0 text-sm leading-relaxed text-muted-2">
+                There is no recovery window and no undo. Export anything you
+                want to keep first.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-line bg-surface p-7 shadow-sm sm:p-8">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-green-tint text-brand-green">
-                <Mail size={20} />
-              </span>
-              <p className="mt-4 text-xs font-semibold tracking-widest text-brand-green uppercase">
-                Route B — By email
-              </p>
-              <h2 className="mt-2 text-xl font-bold text-foreground">
+            <div
+              className="relative px-8 pt-8 pb-[34px]"
+              style={{ border: "1px solid rgba(125,211,252,0.26)" }}
+            >
+              <CornerMarks color="#38BDF8" />
+              <div className="mb-3.5 font-mono text-[10px] tracking-[0.16em] text-accent-light">
+                ROUTE B — BY EMAIL
+              </div>
+              <h2 className="mb-[18px] text-xl font-bold text-heading">
                 No app installed?
               </h2>
-              <p className="mt-5 text-sm leading-relaxed text-muted">
+              <p className="mb-[18px] text-[15px] leading-relaxed text-[#C7D6E9]">
                 Email us from — or naming — the address your account is
                 registered to, with the subject{" "}
-                <strong className="font-semibold text-foreground">
-                  &ldquo;Delete my account&rdquo;
-                </strong>
-                . We verify ownership, then delete your account and all
-                associated data within {DELETION_DAYS} business days and
-                confirm by reply.
+                <strong>&ldquo;Delete my account&rdquo;</strong>. We verify
+                ownership, then delete your account and all associated data
+                within {deletionDays} business days and confirm by reply.
               </p>
               <a
-                href={`mailto:${SUPPORT_EMAIL}?subject=Delete%20my%20account`}
-                className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-semibold text-cta-foreground transition-colors hover:bg-cta-hover"
+                href={`mailto:${supportEmail}?subject=Delete%20my%20account`}
+                className="inline-block border border-blue bg-blue px-5 py-[13px] text-[15px] font-semibold text-white transition-colors hover:border-blue-dark hover:bg-blue-dark"
               >
-                <Mail size={16} />
                 Email a deletion request
               </a>
-              <p className="mt-4 flex items-center gap-2 text-xs text-subtle">
-                <MessageCircle size={14} className="flex-shrink-0" />
+              <p className="mt-[18px] mb-0 text-[13.5px] leading-relaxed text-muted-2">
                 Or message{" "}
                 <a
-                  href={WHATSAPP_URL}
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-brand-blue hover:underline"
+                  className="font-semibold text-accent hover:underline"
                 >
-                  {WHATSAPP_NUMBER}
+                  {whatsappNumber}
                 </a>{" "}
                 on WhatsApp.
               </p>
             </div>
           </div>
-        </section>
 
-        {/* What gets deleted / retained */}
-        <section className="py-16 md:py-20">
-          <div className="mx-auto grid max-w-4xl gap-8 px-5 sm:grid-cols-2 sm:px-8">
-            <div>
-              <h2 className="text-lg font-bold text-foreground">
+          <div className="mb-11 grid gap-px bg-accent-light/16 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
+            <div className="bg-navy px-[26px] py-[30px]">
+              <h2 className="mb-[18px] text-[19px] font-bold text-heading">
                 What gets deleted
               </h2>
-              <ul className="mt-5 space-y-3">
-                {deletedItems.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm text-muted">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-blue" />
-                    {item}
+              <ul className="m-0 flex list-none flex-col gap-[9px] p-0">
+                {deletedOnAccountDeletion.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-2.5 text-[14.5px] leading-snug text-[#C7D6E9]"
+                  >
+                    <span className="mt-1.5 h-[5px] w-[5px] flex-shrink-0 bg-accent" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-foreground">
+            <div className="bg-navy px-[26px] py-[30px]">
+              <h2 className="mb-[18px] text-[19px] font-bold text-heading">
                 What we must keep
               </h2>
-              <ul className="mt-5 space-y-3">
-                {retainedItems.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm text-muted">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-subtle" />
-                    {item}
+              <ul className="m-0 flex list-none flex-col gap-[9px] p-0">
+                {retainedOnAccountDeletion.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-2.5 text-[14.5px] leading-snug text-[#C7D6E9]"
+                  >
+                    <span className="mt-1.5 h-[5px] w-[5px] flex-shrink-0 bg-accent-light" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-xs leading-relaxed text-subtle">
-                These records are stripped of everything not required by
-                law and are never used to contact you or rebuild your
-                profile.
+              <p className="mt-[18px] mb-0 text-[13.5px] leading-relaxed text-muted-2">
+                These records are stripped of everything not required by law
+                and are never used to contact you or rebuild your profile.
               </p>
             </div>
           </div>
 
-          <div className="mx-auto mt-14 flex max-w-4xl items-start gap-3 rounded-2xl border border-line bg-surface-alt px-5 py-4 sm:px-8">
-            <ShieldAlert
-              size={16}
-              className="mt-0.5 flex-shrink-0 text-subtle"
-            />
-            <p className="text-xs leading-relaxed text-subtle">
-              Draft placeholder — retention periods and legal basis should
-              be confirmed against the final Privacy Policy before
-              publishing.
-            </p>
-          </div>
-        </section>
+          <p className="m-0 font-mono text-[10.5px] tracking-[0.10em] text-muted-3">
+            RETENTION PERIODS AND LEGAL BASIS SHOULD BE CONFIRMED AGAINST THE
+            FINAL PRIVACY POLICY BEFORE PUBLISHING.
+          </p>
+        </div>
       </main>
       <Footer />
     </>

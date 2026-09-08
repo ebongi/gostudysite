@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "GO Study — Your entire university, in one app",
+  title: "GoStudy — Your Academic Companion",
   description:
-    "GO Study is a mobile academic platform for university students in Cameroon. Course materials, past papers, an AI study tutor with an offline mode, and productivity tools built for the academic calendar — starting at the University of Buea.",
+    "GoStudy — AI study help, offline course materials, campus chat, exam planning and official transcript requests, all in one Android app built for University of Buea students.",
 };
 
 export default function RootLayout({
@@ -27,14 +22,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${outfit.variable} h-full scroll-smooth antialiased`}
       data-scroll-behavior="smooth"
-      suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+      <body className="flex min-h-full flex-col bg-navy text-ink">
+        {children}
       </body>
     </html>
   );

@@ -1,169 +1,71 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  color-scheme: light;
-
-  --background: #ffffff;
-  --foreground: #1f1f1f;
-  --surface: #ffffff;
-  --surface-alt: #f5f7fa;
-  --muted: #4b5563;
-  --subtle: #6b7280;
-  --line: #e3e7ec;
-  --scrollbar-track: #f5f7fa;
-  --scrollbar-thumb: #d1d7e0;
-
-  /* Coursera-style accent palette — one strong blue for brand/links/CTAs */
-  --brand-blue: #0056d2;
-  --brand-blue-tint: #e7f0ff;
-  --brand-red: #dc2626;
-  --brand-red-tint: #fde8e8;
-  --brand-yellow: #e9a227;
-  --brand-yellow-tint: #fdf3de;
-  --brand-green: #0f9d58;
-  --brand-green-tint: #e3f6ea;
-
-  /* Constant brand-blue fill for solid buttons — stays legible against
-     white text in both themes without needing a .dark override */
-  --cta: #0056d2;
-  --cta-hover: #00419e;
-  --cta-foreground: #ffffff;
-
-  /* Constant navy-blue gradient for the hero/feature/download "chrome"
-     sections — same self-contained pattern as --cta, not themed by .dark */
-  --gradient-navy-from: #0a1a3f;
-  --gradient-navy-to: #1958d9;
-}
-
-.dark {
   color-scheme: dark;
 
-  --background: #0b1220;
-  --foreground: #e8edf5;
-  --surface: #121a2b;
-  --surface-alt: #0f1626;
-  --muted: #9aa7bd;
-  --subtle: #6b7690;
-  --line: #232d42;
-  --scrollbar-track: #0f1626;
-  --scrollbar-thumb: #2c374d;
-
-  /* Lightened tones for legibility on dark navy backgrounds */
-  --brand-blue: #5b9dff;
-  --brand-blue-tint: rgba(91, 157, 255, 0.16);
-  --brand-red: #f17171;
-  --brand-red-tint: rgba(241, 113, 113, 0.16);
-  --brand-yellow: #f0b429;
-  --brand-yellow-tint: rgba(240, 180, 41, 0.16);
-  --brand-green: #34c48c;
-  --brand-green-tint: rgba(52, 196, 140, 0.16);
+  /* Brand palette — mirrors the app's dark theme and the store feature graphic. */
+  --navy: #0f172a;
+  --ink: #e8eef7;
+  --heading: #f8fafc;
+  --muted: #a9bcd6;
+  --muted-2: #8b9fbc;
+  --muted-3: #6f86a6;
+  --accent: #38bdf8;
+  --accent-light: #7dd3fc;
+  --blue: #1e88e5;
+  --blue-dark: #1565c0;
+  --surface: #f8fafc;
+  --surface-muted: #475569;
+  --phone-bezel: #080d18;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-alt: var(--surface-alt);
+  --color-navy: var(--navy);
+  --color-ink: var(--ink);
+  --color-heading: var(--heading);
   --color-muted: var(--muted);
-  --color-subtle: var(--subtle);
-  --color-line: var(--line);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted-2: var(--muted-2);
+  --color-muted-3: var(--muted-3);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-blue: var(--blue);
+  --color-blue-dark: var(--blue-dark);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-phone-bezel: var(--phone-bezel);
 
-  --color-brand-blue: var(--brand-blue);
-  --color-brand-blue-tint: var(--brand-blue-tint);
-  --color-brand-red: var(--brand-red);
-  --color-brand-red-tint: var(--brand-red-tint);
-  --color-brand-yellow: var(--brand-yellow);
-  --color-brand-yellow-tint: var(--brand-yellow-tint);
-  --color-brand-green: var(--brand-green);
-  --color-brand-green-tint: var(--brand-green-tint);
+  --font-sans: var(--font-outfit);
+  --font-mono: ui-monospace, Menlo, monospace;
 
-  --color-cta: var(--cta);
-  --color-cta-hover: var(--cta-hover);
-  --color-cta-foreground: var(--cta-foreground);
-
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s ease-out both;
-  --animate-kenburns: kenburns 7s ease-out both;
+  --animate-float: gs-float 7.5s ease-in-out infinite;
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
-}
-
-/* Respect visitors who've asked for reduced motion: freeze the slideshow's
-   zoom/pan and cut crossfades down to an instant swap. */
-@media (prefers-reduced-motion: reduce) {
-  .animate-kenburns {
-    animation: none;
-  }
-}
-
-.bg-navy-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--gradient-navy-from),
-    var(--gradient-navy-to)
-  );
-}
-
-/* Faint dot-grid texture for the portfolio page's minimal background */
-.dot-grid-bg {
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Small ornamental line-and-dots divider used under section headings */
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-.section-divider::before,
-.section-divider::after {
-  content: "";
-  height: 1px;
-  width: 2.5rem;
-  background: currentColor;
-  opacity: 0.35;
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-light);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent);
+}
+
+::selection {
+  background-color: rgba(56, 189, 248, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Custom scrollbar */
@@ -171,12 +73,139 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+  background: var(--navy);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
+  background: #2c374d;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-blue);
+  background: var(--accent);
+}
+
+@keyframes gs-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gs-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes gs-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gs-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes gs-shot-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes gs-shot-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gs-hero-rule {
+  transform-origin: left;
+  animation: gs-rule 0.9s 0.25s cubic-bezier(0.22, 0.7, 0.24, 1) both;
+}
+
+.gs-phone-img--in-right {
+  animation: gs-shot-in-right 0.46s cubic-bezier(0.22, 0.7, 0.24, 1) both;
+}
+.gs-phone-img--in-left {
+  animation: gs-shot-in-left 0.46s cubic-bezier(0.22, 0.7, 0.24, 1) both;
+}
+
+.gs-page-transition {
+  animation: gs-page-in 0.5s cubic-bezier(0.22, 0.7, 0.24, 1) both;
+}
+
+/* Scroll-reveal (see components/Reveal.tsx) */
+.gs-reveal,
+.gs-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 620ms cubic-bezier(0.22, 0.7, 0.24, 1),
+    transform 620ms cubic-bezier(0.22, 0.7, 0.24, 1);
+}
+.gs-reveal--in,
+.gs-stagger--in > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gs-stagger > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+.gs-stagger > *:nth-child(2) {
+  transition-delay: 75ms;
+}
+.gs-stagger > *:nth-child(3) {
+  transition-delay: 150ms;
+}
+.gs-stagger > *:nth-child(4) {
+  transition-delay: 225ms;
+}
+.gs-stagger > *:nth-child(5) {
+  transition-delay: 300ms;
+}
+.gs-stagger > *:nth-child(6) {
+  transition-delay: 375ms;
+}
+.gs-stagger > *:nth-child(7) {
+  transition-delay: 450ms;
+}
+.gs-stagger > *:nth-child(8) {
+  transition-delay: 525ms;
+}
+.gs-stagger > *:nth-child(n + 9) {
+  transition-delay: 600ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }

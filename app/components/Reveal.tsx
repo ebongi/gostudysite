@@ -1,92 +1,53 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
-type Direction = "up" | "left" | "right" | "scale";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const variants: Record<Direction, Variants> = {
-  up: { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } },
-  left: { hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0 } },
-  right: { hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0 } },
-  scale: {
-    hidden: { opacity: 0, scale: 0.85 },
-    visible: { opacity: 1, scale: 1 },
-  },
-};
-
-/** Fades/slides a block in once it scrolls into view. */
-export function Reveal({
+// Fades + slides its children up into place the first time they scroll into
+// view. When `stagger` is true, direct children are revealed one after
+// another via CSS :nth-child delays instead of all at once.
+export default function Reveal({
+  className = "",
   children,
-  direction = "up",
-  delay = 0,
-  duration = 0.6,
-  className,
+  stagger = false,
+  delayMs = 0,
 }: {
-  children: ReactNode;
-  direction?: Direction;
-  delay?: number;
-  duration?: number;
   className?: string;
+  children: ReactNode;
+  stagger?: boolean;
+  delayMs?: number;
 }) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={variants[direction]}
-      transition={{ duration, delay, ease: EASE }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
 
-/** Wrap a list of RevealItems in this to stagger their entrance together. */
-export function RevealGroup({
-  children,
-  className,
-  staggerDelay = 0.08,
-}: {
-  children: ReactNode;
-  className?: string;
-  staggerDelay?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-export function RevealItem({
-  children,
-  className,
-  direction = "up",
-}: {
-  children: ReactNode;
-  className?: string;
-  direction?: Direction;
-}) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          if (delayMs === 0) {
+            setInView(true);
+          } else {
+            const timer = setTimeout(() => setInView(true), delayMs);
+            return () => clearTimeout(timer);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.06 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delayMs]);
+
+  const base = stagger ? "gs-stagger" : "gs-reveal";
+  const state = inView ? `${base} ${base}--in` : base;
+
   return (
-    <motion.div
-      className={className}
-      variants={variants[direction]}
-      transition={{ duration: 0.45, ease: EASE }}
-    >
+    <div ref={ref} className={`${className} ${state}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }
