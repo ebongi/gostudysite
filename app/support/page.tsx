@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, MessageCircle } from "lucide-react";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 const WHATSAPP_URL = "https://wa.me/237682397481";
 const SUPPORT_EMAIL = "support@gostudy.app";
 
-const faqs = [
+const faqs: { question: string; answer: string; href?: string; linkLabel?: string }[] = [
   {
     question: "How do I get help with the app fastest?",
     answer:
@@ -22,7 +23,9 @@ const faqs = [
   {
     question: "How do I delete my account and data?",
     answer:
-      "Go to Settings > Account > Delete Account. This removes your profile, saved materials, and marketplace listings. See our Privacy Policy for details.",
+      "Go to Settings > Account > Delete Account, or use the web-based request if you no longer have the app installed.",
+    href: "/delete-account",
+    linkLabel: "Delete My Account page",
   },
 ];
 
@@ -85,6 +88,14 @@ export default function SupportPage() {
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   {faq.answer}
                 </p>
+                {faq.href && (
+                  <Link
+                    href={faq.href}
+                    className="mt-2 inline-block text-sm font-semibold text-brand-blue hover:underline"
+                  >
+                    {faq.linkLabel}
+                  </Link>
+                )}
               </div>
             ))}
           </div>

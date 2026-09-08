@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -70,7 +71,15 @@ export default function PrivacyPage() {
                 You can delete your account and all associated data at any
                 time from Settings &gt; Account &gt; Delete Account in the
                 app. This removes your profile, saved materials, and
-                marketplace listings from our systems.
+                marketplace listings from our systems. No app installed?
+                Use the web-based request on our{" "}
+                <Link
+                  href="/delete-account"
+                  className="font-semibold text-brand-blue"
+                >
+                  Delete My Account
+                </Link>{" "}
+                page instead.
               </p>
             </div>
 

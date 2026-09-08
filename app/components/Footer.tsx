@@ -74,6 +74,12 @@ export default function Footer() {
             You can delete your account and all of your data at any time
             from within the app&rsquo;s settings.
           </p>
+          <Link
+            href="/delete-account"
+            className="mt-2 inline-block text-sm font-semibold text-brand-blue hover:underline"
+          >
+            Delete my account
+          </Link>
         </div>
       </div>
 
