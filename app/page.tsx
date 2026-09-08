@@ -13,9 +13,9 @@ import { accentClasses, features, type Accent } from "./lib/features";
 import { stats } from "./lib/stats";
 
 export const metadata: Metadata = {
-  title: "Coming Soon — GO Study",
+  title: "GO Study — Your entire university, in one app",
   description:
-    "GO Study is on its way — course materials, an AI study tutor, and offline access for university students in Cameroon.",
+    "GO Study is a study app for university students in Cameroon — course materials, an AI study tutor, and offline access, starting at the University of Buea.",
 };
 
 const WHATSAPP_URL = "https://wa.me/237682397481";
@@ -87,7 +87,7 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div className="animate-fade-up text-center lg:text-left">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-                  Coming soon to the University of Buea
+                  Available now at the University of Buea
                 </span>
                 <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
                   Your entire university, in one app.
@@ -95,8 +95,7 @@ export default function Home() {
                 <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/85 lg:mx-0">
                   Course materials, an AI study tutor that works offline, and
                   the tools to manage a full semester — built for students
-                  in Cameroon. We&rsquo;re putting the finishing touches on
-                  it now.
+                  in Cameroon.
                 </p>
 
                 <div className="pointer-events-auto mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
@@ -104,7 +103,7 @@ export default function Home() {
                     href="#download"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-7 py-3.5 text-sm font-semibold text-cta-foreground shadow-sm transition-colors hover:bg-cta-hover"
                   >
-                    Get notified
+                    Download now
                   </a>
                   <a
                     href="#screenshots"
@@ -335,12 +334,11 @@ export default function Home() {
         <section id="download" className="bg-navy-gradient py-16 md:py-24">
           <div className="mx-auto max-w-2xl px-5 text-center sm:px-8">
             <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-              Download available soon
+              Download GO Study
             </h2>
             <SectionDivider tone="inverted" />
             <p className="mx-auto mt-6 max-w-md text-white/80">
-              GO Study is in final testing. Here&rsquo;s how you&rsquo;ll get
-              it.
+              You can download GO Study right now — here&rsquo;s how.
             </p>
 
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -362,7 +360,7 @@ export default function Home() {
 
             <div className="mt-16 border-t border-white/15 pt-12">
               <p className="text-sm font-semibold tracking-widest text-white/60 uppercase">
-                Launching in
+                Landing on Google Play in
               </p>
               <div className="mt-6 rounded-3xl bg-white/10 p-4 backdrop-blur-sm sm:p-6">
                 <Countdown />
@@ -370,7 +368,7 @@ export default function Home() {
 
               <div className="mt-10">
                 <p className="text-sm font-semibold text-white">
-                  Want to know the moment we launch?
+                  Want to know the moment we&rsquo;re on Google Play?
                 </p>
                 <div className="mt-4">
                   <NotifyForm />
