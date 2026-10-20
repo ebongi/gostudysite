@@ -17,7 +17,7 @@ export const playStoreUrl = `https://play.google.com/store/apps/details?id=${pla
 export const playLabel = "ANDROID · GOOGLE PLAY · COM.EBONGSUME.GOSTUDY";
 export const deletionDays = 7;
 
-export const apkDownloadUrl = "https://gostudy.b-cdn.net/releases/GoStudy.apk";
+export const apkDownloadUrl = "https://gostudy.b-cdn.net/releases/app-release.apk";
 
 export const shots: Shot[] = [
   {
